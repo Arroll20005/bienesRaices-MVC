@@ -1,0 +1,23 @@
+{
+    "name": "corei7/bienes-raices-php_inicio",
+    "description": "Creando poryecto en POO"
+    ,
+    "authors": [
+        {
+            "name": "arlinpdev",
+            "email": "apaz9411@utm.edu.ec"
+        }
+    ],
+    "require": {
+        "intervention/image": "^3.11"
+    },
+    "autoload":{
+        "psr-4": {
+             "Corei7\\BienesRaicesPhpInicio\\": "src/",
+            "Model\\": "./models",
+            "MVC\\": "./",
+            "Controllers\\": "./controllers"
+
+        }
+    }
+}
