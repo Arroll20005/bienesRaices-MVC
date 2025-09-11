@@ -15,6 +15,7 @@ class PropiedadController {
                 'propiedades' => $propiedades
                 ,'resultado' => $resultado
             ]);
+        
         }
    
    
@@ -124,7 +125,13 @@ public static function crear(Router $router) {
 }
 
     public static function actualizar(Router $router){
-        echo "Desde el controlador de actualizar propiedades";
+        $id = ValidarORedireccionar('/admin');
+        $propiedades= Propiedades::find($id);
+        $vendedores = Vendedor::all();
+        $router->render('propiedades/actualizar', [
+            'propiedades' => $propiedades,
+            'vendededores'=> $vendedores
+        ]);
     }
 
 

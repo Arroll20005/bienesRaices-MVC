@@ -50,3 +50,13 @@ function mostrarNotificacion($codigo){
     }
     return $mensaje;
 }
+function ValidarORedireccionar(string $url){
+
+    $id = $_GET['id'] ?? null;
+$id = filter_var($id, FILTER_VALIDATE_INT);
+if (!$id) {
+    header('Location: /$url');
+    exit;
+}
+return $id;
+}
