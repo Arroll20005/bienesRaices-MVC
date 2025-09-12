@@ -25,9 +25,11 @@ class PropiedadController {
    
      public static function index(Router $router) {
         $propiedades = Propiedades::all();
+        $vendedores = Vendedor::all();
 
         $router->render('propiedades/admin', [
-            'propiedades' => $propiedades
+            'propiedades' => $propiedades,
+            'vendedores'  => $vendedores
         ]);
     }
 
@@ -124,15 +126,65 @@ public static function crear(Router $router) {
     ]);
 }
 
-    public static function actualizar(Router $router){
-        $id = ValidarORedireccionar('/admin');
-        $propiedades= Propiedades::find($id);
-        $vendedores = Vendedor::all();
-        $router->render('propiedades/actualizar', [
-            'propiedades' => $propiedades,
-            'vendededores'=> $vendedores
-        ]);
+  public static function actualizar(Router $router) {
+    $id = ValidarORedireccionar('/admin');
+    $propiedades = Propiedades::find($id);
+    $vendedores = Vendedor::all();
+    $errores = Propiedades::getErrores();
+
+    // METODO POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $args = $_POST['propiedades'];
+        $propiedades->sincronizar($args);
+
+        $errores = $propiedades->validar();
+
+        // Procesar imagen si se subió alguna
+        if (!empty($_FILES['propiedades']['tmp_name']['imagen'])) {
+            $nombreImagen = md5(uniqid(rand(), true)) . '.jpg';
+
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($_FILES['propiedades']['tmp_name']['imagen'])->cover(800, 600);
+
+            $carpetaImagenes = CARPETA_IMAGENES;
+            if (!is_dir($carpetaImagenes)) {
+                mkdir($carpetaImagenes);
+            }
+
+            $image->save($carpetaImagenes . $nombreImagen);
+
+            $propiedades->setImagen($nombreImagen);
+        }
+
+        // Si no hay errores, actualizar en base de datos
+        if (empty($errores)) {
+            $propiedades->guardar();
+        }
     }
 
+    // El render SIEMPRE debe ejecutarse, haya o no POST
+    $router->render('propiedades/actualizar', [
+        'propiedades' => $propiedades,
+        'vendedores'  => $vendedores,
+        'errores'     => $errores
+    ]);
+}
 
+    //METODO ELIMINAR
+    public static function eliminar(){
+if($_SERVER['REQUEST_METHOD']=== 'POST'){ //EVITAR UNDEFINED INDEX
+        $id = $_POST['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        if($id){
+            $tipo = $_POST['tipo'];
+            if(validarTipoContenido($tipo) ){
+                $propiedad = Propiedades::find($id);
+                $propiedad->eliminar();
+                header('Location: /admin?resultado=3');
+                
+            }
+        }
+    }
+
+    }
 }

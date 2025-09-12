@@ -10,6 +10,7 @@ class ComposerStaticInit85748fa47a577a1d3b9d3c06ec2cea3c
         'M' => 
         array (
             'Model\\' => 6,
+            'MVC\\' => 4,
         ),
         'I' => 
         array (
@@ -19,6 +20,7 @@ class ComposerStaticInit85748fa47a577a1d3b9d3c06ec2cea3c
         'C' => 
         array (
             'Corei7\\BienesRaicesPhpInicio\\' => 29,
+            'Controllers\\' => 12,
         ),
     );
 
@@ -26,6 +28,10 @@ class ComposerStaticInit85748fa47a577a1d3b9d3c06ec2cea3c
         'Model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/models',
+        ),
+        'MVC\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/',
         ),
         'Intervention\\Image\\' => 
         array (
@@ -38,6 +44,10 @@ class ComposerStaticInit85748fa47a577a1d3b9d3c06ec2cea3c
         'Corei7\\BienesRaicesPhpInicio\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/controllers',
         ),
     );
 

@@ -7,7 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Model\\' => array($baseDir . '/models'),
+    'MVC\\' => array($baseDir . '/'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src'),
     'Intervention\\Gif\\' => array($vendorDir . '/intervention/gif/src'),
     'Corei7\\BienesRaicesPhpInicio\\' => array($baseDir . '/src'),
+    'Controllers\\' => array($baseDir . '/controllers'),
 );

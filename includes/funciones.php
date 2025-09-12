@@ -52,10 +52,12 @@ function mostrarNotificacion($codigo){
 }
 function ValidarORedireccionar(string $url){
 
-    $id = $_GET['id'] ?? null;
+
+    $id = $_GET['id'] ?? $_POST['id'] ?? null;
+    
 $id = filter_var($id, FILTER_VALIDATE_INT);
 if (!$id) {
-    header('Location: /$url');
+    header('Location: /.' . $url);
     exit;
 }
 return $id;

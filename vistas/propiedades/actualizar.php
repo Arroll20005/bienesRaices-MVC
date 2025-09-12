@@ -1,6 +1,5 @@
-<a href="/admin" class="boton boton-verde">Volver</a>
 <main class="contenedor seccion">
-    <h1>Crear</h1>
+    <h1>Actualizar</h1>
     
         <?php if (!empty($errores)): ?>
         <div class="alerta error">
@@ -11,9 +10,10 @@
     <?php endif; ?>
 
     <!--Formulario de creación-->
-    <form action= "/propiedades/crear" class="formulario"  method="POST" enctype="multipart/form-data">
+    <a href="/admin" class="boton boton-verde">Volver</a>
+    <form action= "/propiedades/actualizar" class="formulario"  method="POST" enctype="multipart/form-data">
       <?php include __DIR__ . '/formulario.php'; ?>
-    <input type="submit" value="Crear Propiedad" class="boton boton-verde">
+    <input type="submit" value="Actualizar Propiedad" class="boton boton-verde">
     </form>
   
 </main>
