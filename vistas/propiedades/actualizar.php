@@ -11,7 +11,7 @@
 
     <!--Formulario de creación-->
     <a href="/admin" class="boton boton-verde">Volver</a>
-    <form action= "/propiedades/actualizar" class="formulario"  method="POST" enctype="multipart/form-data">
+    <form action= "/propiedades/actualizar?id= <?php echo $propiedades->id; ?>" class="formulario"  method="POST" enctype="multipart/form-data">
       <?php include __DIR__ . '/formulario.php'; ?>
     <input type="submit" value="Actualizar Propiedad" class="boton boton-verde">
     </form>

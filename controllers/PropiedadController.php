@@ -128,7 +128,9 @@ public static function crear(Router $router) {
 
   public static function actualizar(Router $router) {
     $id = ValidarORedireccionar('/admin');
+    
     $propiedades = Propiedades::find($id);
+    
     $vendedores = Vendedor::all();
     $errores = Propiedades::getErrores();
 

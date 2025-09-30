@@ -45,48 +45,51 @@ class VendedoresController
 
 
 
- public static function actualizar(Router $router) {
-      $id = $_GET['id'] ?? $_POST['id'] ?? null;
-    $id = filter_var($id, FILTER_VALIDATE_INT);
-
-    if (!$id) {
-        header('Location: /admin'); // sin /.
-        exit;
-    }
-
-    $vendedores = Vendedor::find($id);
-
-    if (!$vendedores) {
-        // No encontró nada en la base
-        header('Location: /admin');
-        exit;
-    }
-
-    $errores = Vendedor::getErrores();
-    $resultado = null;
-    
-
-   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $args = $_POST['vendedores'] ?? [];
-    $vendedores->sincronizar($args);
-
-    $errores = $vendedores->validar();
-
-    if (empty($errores)) {
-        $resultado = $vendedores->guardar();
-        if ($resultado) {
-            header('Location: /admin?resultado=2');
+    public static function actualizar(Router $router)
+    {
+        $id = $_POST['id'] ?? $_GET['id'] ?? null;
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        if (!$id) {
+            debuguear("No es válido");
+            header('Location: /admin');
             exit;
         }
-    }
-}
 
-    // El render SIEMPRE se ejecuta
-    $router->render('vendedores/actualizar', [
-        'vendedores' => $vendedores,
-        'errores'    => $errores
-    ]);
-}
+
+
+        $vendedores = Vendedor::find($id);
+
+        if (!$vendedores) {
+            // No encontró nada en la base
+            header('Location: /admin');
+            exit;
+        }
+
+        $errores = Vendedor::getErrores();
+        $resultado = null;
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $args = $_POST['vendedores'] ?? [];
+            $vendedores->sincronizar($args);
+
+            $errores = $vendedores->validar();
+
+            if (empty($errores)) {
+                $resultado = $vendedores->guardar();
+                if ($resultado) {
+                    header('Location: /admin?resultado=2');
+                    exit;
+                }
+            }
+        }
+
+        // El render SIEMPRE se ejecuta
+        $router->render('vendedores/actualizar', [
+            'vendedores' => $vendedores,
+            'errores'    => $errores
+        ]);
+    }
 
     public static function eliminar(Router $router)
     {

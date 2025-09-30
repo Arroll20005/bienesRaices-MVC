@@ -12,8 +12,8 @@
         </div>
     <?php endif; ?>
 
-    <form class="formulario" action="/vendedores/actualizar"  method="POST" > 
-         <input type="hidden" name="id" value="<?php echo $vendedores->id; ?>">
+    <form class="formulario" action="/vendedores/actualizar?id=<?php echo $vendedores->idvendedores; ?>" method="POST">
+         <input type="hidden" name="id" value="<?php echo $vendedores->idvendedores; ?>">
         
          <?php include __DIR__ . '/formulario.php'; ?>
         

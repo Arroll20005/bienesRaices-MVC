@@ -66,5 +66,33 @@ public function eliminar()
         exit;
     }
 }
+public function guardar(){
+if(!is_null($this->idvendedores)){
+        //actualizar
+        $this->actualizar();
+    }else{
+        //crear un nuevo registro
+        $this->crear();
+    }
+}
+
+    public function actualizar(){
+        $atributos= $this->sanitizar();
+        $valores= [];
+        foreach($atributos as $key => $value){
+            $valores[] = "{$key}='{$value}'";
+        }
+       $query = "UPDATE " . static::$tabla . " SET " . join(',', $valores) . " WHERE idvendedores = " . self::$db->escape_string($this->idvendedores)." LIMIT 1";
+
+
+       $resultado = self::$db->query($query);
+
+         if ($resultado) {
+            header('Location: /admin?resultado=2');
+            exit;
+        } else {
+            echo "Error al actualizar: " . mysqli_error(self::$db);
+        }
+    }
 
 }
