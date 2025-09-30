@@ -1,8 +1,8 @@
-.no-webp .inicio {
-    background-image: url(../img/header.jpg);
+.no-webp .inicio { 
+    background-image: url('../img/header.jpg');
 }
-.webp .inicio {
-    background-image: url(../img/header.webp);
+.inicio {
+    background-image: url('../img/header.webp');
 }
 
 .header {
@@ -15,6 +15,7 @@
 
         @include tablet {
             min-height: 70rem;
+
         }
 
         .contenido-header {

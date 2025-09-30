@@ -1,0 +1,53 @@
+<?php 
+namespace Model;
+class Admin extends ActiveRecord{
+    protected static $tabla= 'usuario';
+    protected static $columnasDB= ['id', 'email', 'password'];
+    public $id;
+    public $email;  
+    public $password;
+    public function __construct($args=[]){
+
+        $this->id= $args['id'] ?? null;
+        $this->email= $args['email'] ?? null;
+        $this->password= $args['password'] ?? null;
+    }
+    public function validar(){
+        if(!$this->email){
+            self::$errores[]="EL MAIL ES OBLIGATORIO";
+        }
+         if(!$this->password){
+            self::$errores[]="LA CONTRASEÑA ES OBLIGATORIA";
+        }
+        return self::$errores;
+
+    }
+    public function existeUsuario(){
+        $query = "SELECT * FROM " . self::$tabla . " WHERE email = '$this->email' LIMIT 1";
+       
+        $resultado= self::$db->query($query);
+        if(!$resultado->num_rows){
+            self::$errores[]="EL USUARIO NO EXISTE";
+        }
+
+        
+        return $resultado;
+    }
+    public function comprobarPassword($resultado){
+        $usuario= $resultado->fetch_object();
+        $autenticado=password_verify($this->password, $usuario->password);
+        if(!$autenticado){
+
+            self::$errores[]="EL PASSWORD ES INCORRECTO";
+        }
+        return $autenticado;
+    }
+    public function autenticar(){
+        session_start();
+        //lennar el arreglo de sesion
+        $_SESSION['usuario']=$this->email;
+        $_SESSION['login']= true;
+        header('Location: /admin');
+    }
+
+}

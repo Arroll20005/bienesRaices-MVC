@@ -1,3 +1,5 @@
+<?php  ?>
+
 <main class="contenedor seccion">
     <h1>Registrar Vendedor</h1>
     <a href="/admin" class="boton boton-verde">Volver</a>
@@ -10,7 +12,9 @@
         </div>
     <?php endif; ?>
 
-    <form class="formulario" action="/vendedores/actualizar" method="POST" enctype="multipart/form-data">
+    <form class="formulario" action="/vendedores/actualizar"  method="POST" > 
+         <input type="hidden" name="id" value="<?php echo $vendedores->id; ?>">
+        
          <?php include __DIR__ . '/formulario.php'; ?>
         
         <input type="submit" value="Guardar cambios" class="boton boton-verde">
